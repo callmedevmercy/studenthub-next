@@ -9,6 +9,7 @@ function LoginForm() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const justRegistered = searchParams.get('registered') === '1'
+  const justReset = searchParams.get('reset') === '1'
 
   const [form, setForm] = useState({ email: '', password: '' })
   const [showPassword, setShowPassword] = useState(false)
@@ -46,6 +47,9 @@ function LoginForm() {
 
       {justRegistered && (
         <div className="auth-success">Account created! Please log in.</div>
+      )}
+      {justReset && (
+        <div className="auth-success">Password updated! Log in with your new password.</div>
       )}
       {error && <div className="auth-error">{error}</div>}
 

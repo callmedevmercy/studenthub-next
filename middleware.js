@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 
-const PUBLIC_PATHS = ['/login', '/register', '/forgot-password']
+const PUBLIC_PATHS = ['/login', '/register', '/forgot-password', '/reset-password']
 
 function isExpired(token) {
   try {
