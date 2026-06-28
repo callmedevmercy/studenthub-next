@@ -10,17 +10,22 @@ export default function CoursePage({ params }) {
 
   useEffect(() => {
     if (!course) return
-    const done = JSON.parse(localStorage.getItem('sh_completed') || '[]')
-    setCompleted(done.includes(course.slug))
+    fetch('/api/auth/progress')
+      .then(r => r.json())
+      .then(({ completed: done }) => setCompleted((done || []).includes(course.slug)))
+      .catch(() => {})
   }, [course])
 
-  const toggleComplete = () => {
-    const done = JSON.parse(localStorage.getItem('sh_completed') || '[]')
-    const next = completed
-      ? done.filter((s) => s !== course.slug)
-      : [...done, course.slug]
-    localStorage.setItem('sh_completed', JSON.stringify(next))
-    setCompleted(!completed)
+  const toggleComplete = async () => {
+    const res = await fetch('/api/auth/progress', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ slug: course.slug }),
+    })
+    if (res.ok) {
+      const data = await res.json()
+      setCompleted(data.nowCompleted)
+    }
   }
 
   if (!course) {

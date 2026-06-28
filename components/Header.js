@@ -9,10 +9,23 @@ export default function Header() {
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(null)
+  const [userInitial, setUserInitial] = useState('')
 
   useEffect(() => {
-    const cookies = document.cookie.split(';').map(c => c.trim())
-    setIsLoggedIn(cookies.some(c => c.startsWith('sb-logged-in=')))
+    const cookieList = document.cookie.split(';').map(c => c.trim())
+    const loggedIn = cookieList.some(c => c.startsWith('sb-logged-in='))
+    setIsLoggedIn(loggedIn)
+    if (loggedIn) {
+      fetch('/api/auth/user')
+        .then(r => r.json())
+        .then(({ user }) => {
+          const name = user?.user_metadata?.name || user?.email || ''
+          setUserInitial(name.charAt(0).toUpperCase())
+        })
+        .catch(() => {})
+    } else {
+      setUserInitial('')
+    }
   }, [pathname])
 
   const isActive = (path) =>
@@ -65,7 +78,10 @@ export default function Header() {
         {isLoggedIn !== null && (
           <div className="auth-buttons auth-buttons--mobile">
             {isLoggedIn ? (
-              <button className="signup-btn" onClick={handleLogout}>Log out</button>
+              <>
+                <Link href="/profile" className="profile-btn" onClick={closeMenu} title="My Profile">{userInitial}</Link>
+                <button className="signup-btn" onClick={handleLogout}>Log out</button>
+              </>
             ) : (
               <>
                 <Link href="/login"    className="login-btn"  onClick={closeMenu}>Log in</Link>
@@ -80,7 +96,10 @@ export default function Header() {
       {isLoggedIn !== null && (
         <div className="auth-buttons auth-buttons--desktop">
           {isLoggedIn ? (
-            <button className="signup-btn" onClick={handleLogout}>Log out</button>
+            <>
+              <Link href="/profile" className="profile-btn" title="My Profile">{userInitial}</Link>
+              <button className="signup-btn" onClick={handleLogout}>Log out</button>
+            </>
           ) : (
             <>
               <Link href="/login"    className="login-btn">Log in</Link>
