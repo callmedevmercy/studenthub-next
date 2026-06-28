@@ -2,20 +2,26 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 
-const ADMIN_PIN = 'studenthub2025'
-
 export default function AdminPage() {
   const [unlocked, setUnlocked] = useState(false)
   const [pin, setPin] = useState('')
   const [pinError, setPinError] = useState(false)
+  const [pinLoading, setPinLoading] = useState(false)
   const [tab, setTab] = useState('events')
   const [events, setEvents] = useState([])
   const [mentorship, setMentorship] = useState([])
   const [loading, setLoading] = useState(true)
 
-  const handleUnlock = (e) => {
+  const handleUnlock = async (e) => {
     e.preventDefault()
-    if (pin === ADMIN_PIN) { setUnlocked(true) }
+    setPinLoading(true)
+    const res = await fetch('/api/auth/admin-unlock', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pin }),
+    })
+    setPinLoading(false)
+    if (res.ok) { setUnlocked(true) }
     else { setPinError(true); setPin('') }
   }
 
@@ -54,7 +60,9 @@ export default function AdminPage() {
                 required
               />
             </div>
-            <button type="submit" className="auth-submit">Unlock Dashboard</button>
+            <button type="submit" className="auth-submit" disabled={pinLoading}>
+              {pinLoading ? 'Checking...' : 'Unlock Dashboard'}
+            </button>
           </form>
         </div>
       </div>

@@ -8,7 +8,7 @@ export default function Header() {
   const pathname = usePathname()
   const router = useRouter()
   const [menuOpen, setMenuOpen] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(null)
 
   useEffect(() => {
     const cookies = document.cookie.split(';').map(c => c.trim())
@@ -34,7 +34,7 @@ export default function Header() {
       <form className="search-form" action="#" method="get">
         <div className="search-wrapper">
           <Image src="/images/search icon.png" alt="Search" width={20} height={20} className="search-icon" />
-          <input type="text" placeholder="Explore by Skill or Mentor..." name="q" />
+          <input type="text" placeholder="Explore by Skill or Mentor..." name="q" aria-label="Search skills or mentors" />
         </div>
       </form>
 
@@ -58,29 +58,33 @@ export default function Header() {
         <Link href="/mentorship" className={isActive('/mentorship') ? 'active' : ''} onClick={closeMenu}>Mentorship</Link>
 
         {/* Auth buttons inside nav on mobile */}
-        <div className="auth-buttons auth-buttons--mobile">
+        {isLoggedIn !== null && (
+          <div className="auth-buttons auth-buttons--mobile">
+            {isLoggedIn ? (
+              <button className="signup-btn" onClick={handleLogout}>Log out</button>
+            ) : (
+              <>
+                <Link href="/login"    className="login-btn"  onClick={closeMenu}>Log in</Link>
+                <Link href="/register" className="signup-btn" onClick={closeMenu}>Sign up</Link>
+              </>
+            )}
+          </div>
+        )}
+      </nav>
+
+      {/* Auth buttons — desktop only */}
+      {isLoggedIn !== null && (
+        <div className="auth-buttons auth-buttons--desktop">
           {isLoggedIn ? (
             <button className="signup-btn" onClick={handleLogout}>Log out</button>
           ) : (
             <>
-              <Link href="/login"    className="login-btn"  onClick={closeMenu}>Log in</Link>
-              <Link href="/register" className="signup-btn" onClick={closeMenu}>Sign up</Link>
+              <Link href="/login"    className="login-btn">Log in</Link>
+              <Link href="/register" className="signup-btn">Sign up</Link>
             </>
           )}
         </div>
-      </nav>
-
-      {/* Auth buttons — desktop only */}
-      <div className="auth-buttons auth-buttons--desktop">
-        {isLoggedIn ? (
-          <button className="signup-btn" onClick={handleLogout}>Log out</button>
-        ) : (
-          <>
-            <Link href="/login"    className="login-btn">Log in</Link>
-            <Link href="/register" className="signup-btn">Sign up</Link>
-          </>
-        )}
-      </div>
+      )}
     </header>
   )
 }
