@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function MentorshipClient({ mentors }) {
   const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
@@ -43,11 +44,13 @@ export default function MentorshipClient({ mentors }) {
       <div className="mentor-grid">
         {mentors.map((mentor) => (
           <div key={mentor.id} className="mentor-card">
-            <img
+            <Image
               src={mentor.image}
               alt={mentor.name}
+              width={60}
+              height={60}
               className="mentor-img"
-              loading="lazy"
+              style={{ objectFit: 'cover' }}
             />
             <h3>{mentor.name}</h3>
             <p><strong>Skill Area:</strong> {mentor.skill}</p>

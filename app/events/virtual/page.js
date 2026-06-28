@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata = { title: 'StudentHub - Virtual Events' }
@@ -51,12 +52,9 @@ export default function VirtualEventsPage() {
         <div className="d-flex flex-wrap justify-content-center gap-4">
           {virtualEvents.map((event) => (
             <div key={event.id} className="card-container">
-              <img
-                src={event.image}
-                className="image-card"
-                alt={event.title}
-                loading="lazy"
-              />
+              <div style={{ position: 'relative', width: '100%', maxWidth: '360px', height: '280px', borderRadius: '10px', overflow: 'hidden', boxShadow: '0px 1px 6px 1px rgba(0,0,0,0.4)', marginTop: '1.5rem' }}>
+                <Image src={event.image} alt={event.title} fill sizes="360px" style={{ objectFit: 'cover' }} />
+              </div>
               <h2 id="card-name">{event.title}</h2>
               <p className="description">
                 📅 {event.date}

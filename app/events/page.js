@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata = { title: 'StudentHub - Events' }
@@ -35,12 +36,9 @@ export default function EventsPage() {
             {events.map((event) => (
               <div key={event.id} className="col-12 col-md-6 col-lg-4">
                 <div className="events-card-box h-100">
-                  <img
-                    src={event.image}
-                    alt={event.title}
-                    className="event-card-img"
-                    loading="lazy"
-                  />
+                  <div style={{ position: 'relative', height: '150px', borderRadius: '8px', overflow: 'hidden', boxShadow: '1px 2px 8px rgba(0,0,0,0.3)' }}>
+                    <Image src={event.image} alt={event.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+                  </div>
                   <h5 className="event-card-title">{event.title}</h5>
                   <p className="card-description">
                     {event.description}

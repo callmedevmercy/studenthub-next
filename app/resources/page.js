@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { resources } from '@/data/resources'
 
@@ -50,11 +51,9 @@ export default function ResourcesPage() {
       <div className="card-grid">
         {filtered.map((resource) => (
           <div key={resource.id} className="resource-card">
-            <img
-              src={resource.image}
-              alt={resource.title}
-              loading="lazy"
-            />
+            <div style={{ position: 'relative', height: '160px', width: '100%', overflow: 'hidden' }}>
+              <Image src={resource.image} alt={resource.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: 'cover' }} />
+            </div>
             <div className="resource-card-body">
               <h3>{resource.title}</h3>
               <p>{resource.description}</p>

@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { resources } from '@/data/resources'
 
 export default function CoursePage({ params }) {
@@ -104,7 +105,9 @@ export default function CoursePage({ params }) {
                   const rlvl = LEVEL_COLOR[r.level]
                   return (
                     <Link key={r.slug} href={`/courses/${r.slug}`} className="related-card">
-                      <img src={r.image} alt={r.title} loading="lazy" />
+                      <div style={{ position: 'relative', height: '100px', width: '100%', overflow: 'hidden' }}>
+                        <Image src={r.image} alt={r.title} fill sizes="(max-width: 768px) 100vw, 220px" style={{ objectFit: 'cover' }} />
+                      </div>
                       <div className="related-card-body">
                         <span
                           className="course-level-badge"
@@ -125,7 +128,9 @@ export default function CoursePage({ params }) {
         {/* Right: sticky info card */}
         <aside className="course-sidebar">
           <div className="course-info-card">
-            <img src={course.image} alt={course.title} loading="lazy" className="course-thumb" />
+            <div style={{ position: 'relative', height: '170px', width: '100%', overflow: 'hidden', borderRadius: '8px' }}>
+              <Image src={course.image} alt={course.title} fill priority sizes="(max-width: 768px) 100vw, 300px" style={{ objectFit: 'cover' }} />
+            </div>
 
             <div className="course-info-body">
               <div className="course-meta-row">
