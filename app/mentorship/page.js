@@ -11,72 +11,8 @@ const mentors = [
   { id: 8, name: 'Dr Emeka Obi',         skill: 'Electrical Engineer & Researcher',   bio: 'Expert in energy systems and smart grid technology. PhD from University of Ibadan.',                             image: '/images/Mentorship page/nith-in-w1N1WmLDyHU-unsplash.jpg' },
 ]
 
+import MentorshipClient from './MentorshipClient'
+
 export default function MentorshipPage() {
-  return (
-    <main className="mentorship-section">
-      <h1>Find <span className="highlight">Your Mentor</span></h1>
-      <p className="mentorship-subtext">
-        Connect with experienced professionals who can guide your academic and career journey and help you achieve your goals.
-      </p>
-
-      <div className="mentor-grid">
-        {mentors.map((mentor) => (
-          <div key={mentor.id} className="mentor-card">
-            <img
-              src={mentor.image}
-              alt={mentor.name}
-              className="mentor-img"
-              loading="lazy"
-            />
-            <h3>{mentor.name}</h3>
-            <p><strong>Skill Area:</strong> {mentor.skill}</p>
-            <p>{mentor.bio}</p>
-
-            {/* Bootstrap modal trigger */}
-            <button
-              className="request-btn"
-              data-bs-toggle="modal"
-              data-bs-target="#mentorshipModal"
-            >
-              Request Mentorship
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {/* Mentorship Request Modal */}
-      <div className="modal fade" id="mentorshipModal" tabIndex="-1" aria-labelledby="mentorshipModalLabel" aria-hidden="true">
-        <div className="modal-dialog modal-dialog-centered">
-          <div className="modal-content">
-            <div className="modal-header" style={{ backgroundColor: '#e0f0ff' }}>
-              <h5 className="modal-title" id="mentorshipModalLabel">Request Mentorship</h5>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              <form action="/api/mentorship" method="POST">
-                <input className="modal-input" type="text"   name="name"    placeholder="Your Full Name"    required />
-                <input className="modal-input" type="email"  name="email"   placeholder="Your Email"        required />
-                <input className="modal-input" type="text"   name="subject" placeholder="Topic / Skill Area" required />
-                <textarea
-                  className="modal-input"
-                  name="message"
-                  placeholder="Tell the mentor what you need help with..."
-                  rows="4"
-                  required
-                  style={{ resize: 'vertical' }}
-                />
-                <button
-                  type="submit"
-                  className="btn w-100"
-                  style={{ backgroundColor: '#00aaff', color: 'white', fontWeight: '600' }}
-                >
-                  Send Request
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  )
+  return <MentorshipClient mentors={mentors} />
 }

@@ -6,13 +6,32 @@ export default function RegisterPage() {
   const router = useRouter()
   const [submitted, setSubmitted] = useState(false)
   const [form, setForm] = useState({ name: '', email: '', phone: '', event: '' })
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO: POST to /api/events/register when backend is ready
-    setSubmitted(true)
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/events', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      })
+      const data = await res.json()
+      if (!res.ok) {
+        setError(data.error || 'Failed to register. Please try again.')
+        return
+      }
+      setSubmitted(true)
+    } catch {
+      setError('Network error. Please check your connection and try again.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   if (submitted) {
@@ -47,6 +66,8 @@ export default function RegisterPage() {
         </button>
 
         <h2>Event Registration</h2>
+
+        {error && <div className="auth-error" style={{ marginBottom: '1rem', color: '#ff6b6b', background: 'rgba(255, 107, 107, 0.1)', padding: '0.5rem 1rem', borderRadius: '4px', fontSize: '0.9rem' }}>{error}</div>}
 
         <form onSubmit={handleSubmit}>
           <div className="form-input-box">
@@ -97,7 +118,9 @@ export default function RegisterPage() {
               <option value="Git Ready">Git Ready (Physical)</option>
             </select>
           </div>
-          <button className="form-submit-button" type="submit">Submit Now</button>
+          <button className="form-submit-button" type="submit" disabled={loading}>
+            {loading ? 'Submitting...' : 'Submit Now'}
+          </button>
         </form>
       </div>
     </section>
