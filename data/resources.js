@@ -42,7 +42,7 @@ export const resources = [
     description: 'Set SMART goals and create action plans to achieve personal, academic, or career success.',
     image: '/images/resourses.jpg/Resource Page/productivity 5.jpg',
     slug: 'GSE',
-    youtube: 'https://www.youtube.com/embed/SnxFkHqN1RA',
+    youtube: 'https://www.youtube.com/embed/7YGZZcXqKxE',
     outcomes: ['Write SMART goals that stick', 'Break goals into weekly milestones', 'Use OKRs (Objectives & Key Results)', 'Review and adapt your goals regularly'],
   },
   {
@@ -98,7 +98,7 @@ export const resources = [
     description: 'Find out how to balance and retain vocabulary, grammar, and speaking skills across multiple languages at once.',
     image: '/images/resourses.jpg/Resource Page/language5.jpg',
     slug: 'MM',
-    youtube: 'https://www.youtube.com/embed/ySuDinMx1TM?list=PLgGbWId6zgaV9QYvGLQF_hWgTR5jk_s_q',
+    youtube: 'https://www.youtube.com/embed/Z7MU6zrAXsM',
     outcomes: ['Prevent language interference between similar tongues', 'Manage study schedules for multiple languages', 'Use polyglot memory techniques', 'Reach conversational level in 3+ languages'],
   },
 
@@ -127,7 +127,7 @@ export const resources = [
     description: 'Master Python fundamentals for data analysis, visualization, and machine learning.',
     image: '/images/resourses.jpg/Resource Page/pythonfordatascience.jpg',
     slug: 'pythonDS',
-    youtube: 'https://www.youtube.com/embed/9Xy2YeAHjcY',
+    youtube: 'https://www.youtube.com/embed/LHBE6Q9XlzI',
     outcomes: ['Write clean Python scripts and functions', 'Analyse data with Pandas and NumPy', 'Create charts and visualisations with Matplotlib', 'Build your first machine learning model'],
   },
   {
@@ -266,7 +266,7 @@ export const resources = [
     description: 'Bring designs to life with motion by learning key animation techniques and tools like After Effects.',
     image: '/images/resourses.jpg/Resource Page/design5.jpg',
     slug: 'MGB',
-    youtube: 'https://www.youtube.com/embed/ySuDinMx1TM?list=PLgGbWId6zgaV9QYvGLQF_hWgTR5jk_s_q',
+    youtube: 'https://www.youtube.com/embed/5PNotJrwkYY?list=PLWYr0cX0QTLCzRlSioyNG90GgvblR33j7',
     outcomes: ['Understand keyframing and easing principles', 'Create text animations and logo reveals', 'Build motion graphics for social media', 'Export animations for web and video'],
   },
   {
@@ -275,7 +275,7 @@ export const resources = [
     description: 'Quickly create stunning social media graphics, posters, and presentations using Canva.',
     image: '/images/resourses.jpg/Resource Page/design4.jpg',
     slug: 'dwc',
-    youtube: 'https://www.youtube.com/embed/9Xy2YeAHjcY',
+    youtube: 'https://www.youtube.com/embed/Llnmf5BXLBA',
     outcomes: ['Navigate the Canva interface confidently', 'Design social media posts and stories', 'Build professional presentation decks', 'Maintain consistent branding across templates'],
   },
   {

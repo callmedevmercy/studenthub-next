@@ -1897,3 +1897,87 @@ select.form-input-tags { appearance: none; cursor: pointer; }
   text-decoration: none;
   font-weight: 500;
 }
+
+/* =============================================
+   404 / ERROR PAGE
+   ============================================= */
+.notfound-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.notfound-code {
+  font-size: 5rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #ab4fff, #45d8ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.notfound-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0e0f2c;
+  margin-bottom: 0.5rem;
+}
+
+@media (min-width: 480px) { .notfound-title { font-size: 1.8rem; } }
+
+.notfound-desc {
+  color: #6b7280;
+  font-size: 0.95rem;
+  max-width: 360px;
+  margin-bottom: 1.75rem;
+}
+
+.notfound-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, #ab4fff, #45d8ff);
+  color: white;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.notfound-btn:hover { opacity: 0.85; color: white; }
+
+/* =============================================
+   LOADING SCREEN
+   ============================================= */
+.loading-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  gap: 1rem;
+}
+
+.loading-ring {
+  width: 44px;
+  height: 44px;
+  border: 4px solid #e5e7eb;
+  border-top-color: #ab4fff;
+  border-radius: 50%;
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.loading-label {
+  color: #9ca3af;
+  font-size: 0.9rem;
+}
