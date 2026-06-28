@@ -31,7 +31,11 @@ export default function Header() {
     <header>
       <Link href="/" className="logo" onClick={closeMenu}>StudentHub</Link>
 
-      <form className="search-form" action="#" method="get">
+      <form className="search-form" onSubmit={(e) => {
+        e.preventDefault()
+        const q = e.target.q.value.trim()
+        if (q) { closeMenu(); router.push(`/resources?q=${encodeURIComponent(q)}`) }
+      }}>
         <div className="search-wrapper">
           <Image src="/images/search icon.png" alt="Search" width={20} height={20} className="search-icon" />
           <input type="text" placeholder="Explore by Skill or Mentor..." name="q" aria-label="Search skills or mentors" />

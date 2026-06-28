@@ -66,7 +66,7 @@ function LoginForm() {
         </div>
 
         <div className="auth-forgot">
-          <Link href="#">Forgot password?</Link>
+          <Link href="/forgot-password">Forgot password?</Link>
         </div>
 
         <button type="submit" className="auth-submit" disabled={loading}>

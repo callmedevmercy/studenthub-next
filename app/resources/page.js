@@ -1,19 +1,24 @@
 'use client'
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { resources } from '@/data/resources'
 
 const categories = ['design', 'productivity', 'coding', 'business', 'language']
 
-export default function ResourcesPage() {
+function ResourcesContent() {
+  const searchParams = useSearchParams()
+  const q = searchParams.get('q')?.toLowerCase() || ''
+
   const [selectedCategory, setSelectedCategory] = useState(null)
   const [selectedLevel, setSelectedLevel] = useState('all')
 
   const filtered = resources.filter((r) => {
     const matchCat   = !selectedCategory || r.category === selectedCategory
     const matchLevel = selectedLevel === 'all' || r.level === selectedLevel
-    return matchCat && matchLevel
+    const matchQuery = !q || r.title.toLowerCase().includes(q) || r.description.toLowerCase().includes(q) || r.category.toLowerCase().includes(q)
+    return matchCat && matchLevel && matchQuery
   })
 
   return (
@@ -21,15 +26,21 @@ export default function ResourcesPage() {
       <h1>Learning Resources</h1>
       <p>Everything you need to learn, grow, and succeed. From coding tutorials to design masterclasses.</p>
 
+      {q && (
+        <p style={{ marginBottom: '0.5rem', color: '#555', fontSize: '0.95rem' }}>
+          Showing results for <strong>&ldquo;{q}&rdquo;</strong>
+          {' — '}
+          <Link href="/resources" style={{ color: '#0EA5E9' }}>Clear search</Link>
+        </p>
+      )}
+
       <div className="filter-bar">
         <div className="filter-buttons">
           {categories.map((cat) => (
             <button
               key={cat}
               className={selectedCategory === cat ? 'active' : ''}
-              onClick={() =>
-                setSelectedCategory(selectedCategory === cat ? null : cat)
-              }
+              onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
             >
               {cat}
             </button>
@@ -70,9 +81,17 @@ export default function ResourcesPage() {
 
       {filtered.length === 0 && (
         <p style={{ textAlign: 'center', marginTop: '2rem', color: '#555' }}>
-          No resources found for the selected filters.
+          No resources found{q ? ` for "${q}"` : ' for the selected filters'}.
         </p>
       )}
     </main>
+  )
+}
+
+export default function ResourcesPage() {
+  return (
+    <Suspense fallback={<main className="resources-section"><p>Loading resources...</p></main>}>
+      <ResourcesContent />
+    </Suspense>
   )
 }
