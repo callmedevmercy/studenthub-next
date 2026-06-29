@@ -15,7 +15,7 @@ export function middleware(request) {
   const { pathname } = request.nextUrl
   const isPublic = PUBLIC_PATHS.some(p => pathname === p || pathname.startsWith(p + '/'))
 
-  if (isPublic) return NextResponse.next()
+  if (pathname === '/' || isPublic) return NextResponse.next()
 
   const token = request.cookies.get('sb-access-token')
   if (!token || isExpired(token.value)) {
