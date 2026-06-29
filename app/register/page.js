@@ -61,48 +61,50 @@ export default function RegisterPage() {
             </div>
           )}
 
-          {!registered && error && <div className="auth-error">{error}</div>}
           {!registered && (
+            <>
+              {error && <div className="auth-error">{error}</div>}
 
-          <form onSubmit={handleSubmit} className="auth-form">
-            <div className="auth-field">
-              <label htmlFor="name">Full name</label>
-              <input id="name" name="name" type="text" required placeholder="Your full name" value={form.name} onChange={handleChange} />
-            </div>
+              <form onSubmit={handleSubmit} className="auth-form">
+                <div className="auth-field">
+                  <label htmlFor="name">Full name</label>
+                  <input id="name" name="name" type="text" required placeholder="Your full name" value={form.name} onChange={handleChange} />
+                </div>
 
-            <div className="auth-field">
-              <label htmlFor="email">Email address</label>
-              <input id="email" name="email" type="email" required placeholder="you@example.com" value={form.email} onChange={handleChange} />
-            </div>
+                <div className="auth-field">
+                  <label htmlFor="email">Email address</label>
+                  <input id="email" name="email" type="email" required placeholder="you@example.com" value={form.email} onChange={handleChange} />
+                </div>
 
-            <div className="auth-field">
-              <label htmlFor="password">Password</label>
-              <div className="auth-password-wrap">
-                <input id="password" name="password" type={showPassword ? 'text' : 'password'} required placeholder="Min. 8 characters" value={form.password} onChange={handleChange} />
-                <button type="button" className="auth-eye-btn" onClick={() => setShowPassword(v => !v)} aria-label={showPassword ? 'Hide password' : 'Show password'}>
-                  <EyeIcon open={showPassword} />
+                <div className="auth-field">
+                  <label htmlFor="password">Password</label>
+                  <div className="auth-password-wrap">
+                    <input id="password" name="password" type={showPassword ? 'text' : 'password'} required placeholder="Min. 8 characters" value={form.password} onChange={handleChange} />
+                    <button type="button" className="auth-eye-btn" onClick={() => setShowPassword(v => !v)} aria-label={showPassword ? 'Hide password' : 'Show password'}>
+                      <EyeIcon open={showPassword} />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="auth-field">
+                  <label htmlFor="confirm">Confirm password</label>
+                  <div className="auth-password-wrap">
+                    <input id="confirm" name="confirm" type={showConfirm ? 'text' : 'password'} required placeholder="Repeat your password" value={form.confirm} onChange={handleChange} />
+                    <button type="button" className="auth-eye-btn" onClick={() => setShowConfirm(v => !v)} aria-label={showConfirm ? 'Hide password' : 'Show password'}>
+                      <EyeIcon open={showConfirm} />
+                    </button>
+                  </div>
+                </div>
+
+                <button type="submit" className="auth-submit" disabled={loading}>
+                  {loading ? 'Creating account...' : 'Create account'}
                 </button>
-              </div>
-            </div>
+              </form>
 
-            <div className="auth-field">
-              <label htmlFor="confirm">Confirm password</label>
-              <div className="auth-password-wrap">
-                <input id="confirm" name="confirm" type={showConfirm ? 'text' : 'password'} required placeholder="Repeat your password" value={form.confirm} onChange={handleChange} />
-                <button type="button" className="auth-eye-btn" onClick={() => setShowConfirm(v => !v)} aria-label={showConfirm ? 'Hide password' : 'Show password'}>
-                  <EyeIcon open={showConfirm} />
-                </button>
-              </div>
-            </div>
-
-            <button type="submit" className="auth-submit" disabled={loading}>
-              {loading ? 'Creating account...' : 'Create account'}
-            </button>
-          </form>
-
-          <p className="auth-switch">
-            Already have an account? <Link href="/login">Log in</Link>
-          </p>
+              <p className="auth-switch">
+                Already have an account? <Link href="/login">Log in</Link>
+              </p>
+            </>
           )}
         </div>
       </div>
