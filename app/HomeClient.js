@@ -4,10 +4,17 @@ import Link from 'next/link'
 import { resources } from '@/data/resources'
 
 const FEATURES = [
-  { href: '/resources', title: 'Resources',   desc: 'Browse courses and study materials curated for students.', accent: '#0EA5E9' },
-  { href: '/events',    title: 'Events',      desc: 'Discover upcoming virtual and in-person student events.',  accent: '#d946ef' },
-  { href: '/roadmap',   title: 'Roadmap',     desc: 'Follow structured learning paths to master your track.',   accent: '#ab4fff' },
-  { href: '/mentorship',title: 'Mentorship',  desc: 'Connect with experienced mentors in your field.',          accent: '#16a34a' },
+  { href: '/resources',  title: 'Resources',  desc: 'Browse courses and study materials curated for students.', color: '#0EA5E9', bg: '#e0f2fe', icon: '📚' },
+  { href: '/events',     title: 'Events',     desc: 'Discover upcoming virtual and in-person student events.',  color: '#d946ef', bg: '#fdf4ff', icon: '🎉' },
+  { href: '/roadmap',    title: 'Roadmap',    desc: 'Follow structured learning paths to master your track.',   color: '#ab4fff', bg: '#f5f3ff', icon: '🗺️' },
+  { href: '/mentorship', title: 'Mentorship', desc: 'Connect with experienced mentors in your field.',          color: '#16a34a', bg: '#f0fdf4', icon: '🤝' },
+]
+
+const STATS = [
+  { label: 'Resources', value: '31' },
+  { label: 'Events',    value: '6'  },
+  { label: 'Mentors',   value: '8'  },
+  { label: 'Tracks',    value: '4'  },
 ]
 
 export default function HomeClient() {
@@ -37,14 +44,29 @@ export default function HomeClient() {
 
   return (
     <main className="hub-page">
+
+      {/* Hero welcome */}
       <div className="hub-welcome">
+        <p className="hub-greeting">
+          {firstName ? `Hey, ${firstName} 👋` : 'Welcome back 👋'}
+        </p>
         <h1>
-          Welcome to StudentHub
-          {firstName && <span className="hub-username">, {firstName}</span>}
+          Welcome to <span className="hub-username">StudentHub</span>
         </h1>
-        <p>Your learning hub. Where would you like to go today?</p>
+        <p className="hub-subtitle">Your learning hub — where would you like to go today?</p>
+
+        {/* Stats */}
+        <div className="hub-stats">
+          {STATS.map(s => (
+            <div key={s.label} className="hub-stat">
+              <span className="hub-stat-value">{s.value}</span>
+              <span className="hub-stat-label">{s.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
+      {/* Continue learning */}
       {showContinue && (
         <section className="hub-continue-section">
           <h2 className="hub-section-label">Continue Learning</h2>
@@ -73,15 +95,18 @@ export default function HomeClient() {
         </section>
       )}
 
+      {/* Feature cards */}
       <section>
         <h2 className="hub-section-label">Explore</h2>
         <div className="hub-grid">
-          {FEATURES.map(({ href, title, desc, accent }) => (
-            <Link key={href} href={href} className="hub-card">
-              <span className="hub-card-accent" style={{ background: accent }} />
-              <h3>{title}</h3>
+          {FEATURES.map(({ href, title, desc, color, bg, icon }) => (
+            <Link key={href} href={href} className="hub-card" style={{ background: bg }}>
+              <div className="hub-card-icon" style={{ background: `${color}22` }}>
+                <span style={{ fontSize: '1.6rem' }}>{icon}</span>
+              </div>
+              <h3 style={{ color }}>{title}</h3>
               <p>{desc}</p>
-              <span className="hub-card-cta">Explore &rarr;</span>
+              <span className="hub-card-cta" style={{ color }}>Explore &rarr;</span>
             </Link>
           ))}
         </div>
