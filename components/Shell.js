@@ -11,7 +11,7 @@ export default function Shell({ children }) {
   return (
     <>
       {!isAuth && <Header />}
-      {children}
+      <div style={{ flex: 1 }}>{children}</div>
       {!isAuth && <Footer />}
     </>
   )

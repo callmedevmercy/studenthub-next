@@ -6,12 +6,12 @@ import { useRouter } from 'next/navigation'
 import EyeIcon from '@/components/EyeIcon'
 
 export default function RegisterPage() {
-  const router = useRouter()
   const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' })
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [registered, setRegistered] = useState(false)
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
@@ -29,7 +29,7 @@ export default function RegisterPage() {
       })
       const data = await res.json()
       if (!res.ok) { setError(data.error || 'Registration failed'); return }
-      router.push('/login?registered=1')
+      setRegistered(true)
     } catch {
       setError('Network error. Please try again.')
     } finally {
@@ -47,10 +47,22 @@ export default function RegisterPage() {
         <div className="auth-card">
           <div className="auth-brand">
             <span className="logo" style={{ fontSize: '2rem' }}>StudentHub</span>
-            <p>Create your free account</p>
+            <p>{registered ? 'One more step!' : 'Create your free account'}</p>
           </div>
 
-          {error && <div className="auth-error">{error}</div>}
+          {registered && (
+            <div style={{ textAlign: 'center' }}>
+              <div className="auth-success" style={{ marginBottom: '1.25rem', fontSize: '1rem', lineHeight: '1.6' }}>
+                Account created! We&apos;ve sent a verification link to <strong>{form.email}</strong>. Check your inbox and click the link to activate your account.
+              </div>
+              <Link href="/login" className="auth-submit" style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>
+                Go to Log in
+              </Link>
+            </div>
+          )}
+
+          {!registered && error && <div className="auth-error">{error}</div>}
+          {!registered && (
 
           <form onSubmit={handleSubmit} className="auth-form">
             <div className="auth-field">
@@ -91,6 +103,7 @@ export default function RegisterPage() {
           <p className="auth-switch">
             Already have an account? <Link href="/login">Log in</Link>
           </p>
+          )}
         </div>
       </div>
     </div>

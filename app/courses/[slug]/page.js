@@ -10,6 +10,12 @@ export default function CoursePage({ params }) {
 
   useEffect(() => {
     if (!course) return
+    // Track last visited for home page "continue learning"
+    try {
+      localStorage.setItem('sh_last_course', JSON.stringify({
+        slug: course.slug, title: course.title, category: course.category,
+      }))
+    } catch {}
     fetch('/api/auth/progress')
       .then(r => r.json())
       .then(({ completed: done }) => setCompleted((done || []).includes(course.slug)))
